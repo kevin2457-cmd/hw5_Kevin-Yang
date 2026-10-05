@@ -1,0 +1,14 @@
+# Campus Customs 后端 + MCP 服务器依赖（Python 3.11 及以上；作者本机为 Python 3.14）
+# 智能体：PydanticAI（OpenAI Responses 接口经 Portkey 调用 gpt-6-luna）+ MCP 客户端
+pydantic-ai-slim[openai,mcp]==2.43.0
+openai==3.8.0
+pydantic==2.13.5
+# pydantic_ai.mcp 会 import httpx，但上面的 extras 没有带上它（在全新虚拟环境中验证过）
+httpx==0.28.1
+# MCP 服务器（mcp_server/server.py）
+fastmcp==4.0.11
+# FastAPI 后端（backend/main.py）
+fastapi==0.141.1
+uvicorn==0.53.0
+# 从 .env 读取 PORTKEY_API_KEY
+python-dotenv==1.2.3

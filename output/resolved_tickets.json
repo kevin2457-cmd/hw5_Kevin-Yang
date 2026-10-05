@@ -1,0 +1,344 @@
+{
+  "round": {
+    "id": "P9-ROUND-1",
+    "reset_audit_event": 91,
+    "reset_time": "2026-10-05T01:02:08.357-04:00",
+    "starting_balance": 3400.0,
+    "total_paid": 3240.0,
+    "final_balance": 160.0,
+    "cash_reconciles": true,
+    "database": "data/campus_customs_new.db",
+    "model": "gpt-6-luna",
+    "audit_events": [
+      91,
+      409
+    ]
+  },
+  "tickets": [
+    {
+      "ticket_id": 101,
+      "subject": "Bulldog tee",
+      "final_status": "resolved",
+      "runs": [
+        {
+          "run_id": "20261005-010229-f2e857",
+          "status": "completed",
+          "started_at": "2026-10-05T01:02:29.678-04:00",
+          "ended_at": "2026-10-05T01:03:37.561-04:00",
+          "usage": {
+            "requests": 18,
+            "tool_calls": 32,
+            "input_tokens": 59189,
+            "output_tokens": 7256,
+            "total_tokens": 66445,
+            "loop_steps": 46,
+            "delegations": 4
+          }
+        }
+      ],
+      "summary": "S 码缺货（M 5、L 3、XL 2 可替代）；补货被 Bulldog Print Co 未付发票 501 阻断。财务创建发票申请 #1，真人批准后付款 $840、发票 501 变为 paid；客服保存未发送草稿 #1。",
+      "delegations": [
+        "总负责人 → 库存负责人",
+        "库存负责人 → 财务负责人",
+        "总负责人 → 财务负责人",
+        "总负责人 → 客服负责人"
+      ],
+      "agents": {
+        "boss": {
+          "title": "总负责人",
+          "participated": true,
+          "contribution": "读取工单 101 和 102，委派库存、财务（全店付款排序）和客服，汇总并提示申请 #2 归属异常。",
+          "mcp_tools": {
+            "get_ticket_details": 2,
+            "list_open_tickets": 1,
+            "get_cash_position": 1,
+            "list_approval_requests": 3
+          }
+        },
+        "inventory": {
+          "title": "库存负责人",
+          "participated": true,
+          "contribution": "确认 S 码 0 件和替代尺码，查到供应商因发票 501 停发，直接委派财务评估付款。",
+          "mcp_tools": {
+            "check_stock_and_price": 1,
+            "get_ticket_details": 1,
+            "list_sizes_for_sku": 1,
+            "get_vendor_status": 1
+          }
+        },
+        "finance": {
+          "title": "财务负责人",
+          "participated": true,
+          "contribution": "为发票 501 创建待批申请 #1；在全店排序时另外创建房租申请 #2（后归属工单 102）。",
+          "mcp_tools": {
+            "check_stock_and_price": 1,
+            "get_vendor_status": 2,
+            "get_ticket_details": 2,
+            "get_cash_position": 2,
+            "list_approval_requests": 4,
+            "request_payment_approval": 2
+          }
+        },
+        "facilities": {
+          "title": "场地负责人",
+          "participated": false,
+          "contribution": "本次未参与",
+          "mcp_tools": {}
+        },
+        "customer_service": {
+          "title": "客服负责人",
+          "participated": true,
+          "contribution": "保存给 Tauhid Zaman 的未发送草稿 #1，不承诺补货日期。",
+          "mcp_tools": {
+            "get_ticket_details": 1,
+            "check_stock_and_price": 1,
+            "list_sizes_for_sku": 1,
+            "save_customer_draft": 1
+          }
+        }
+      },
+      "human_approvals": [
+        {
+          "request_id": 1,
+          "uid": "6c13bad63f2c48439f210e6f378281f1",
+          "ticket_id": 101,
+          "kind": "invoice",
+          "ref_id": 501,
+          "payee": "Bulldog Print Co",
+          "amount": 840.0,
+          "status": "executed",
+          "approved_by": "杨启荣",
+          "decided_at": "2026-10-05T01:14:22",
+          "payment_id": 1,
+          "requested_by": "finance"
+        }
+      ],
+      "customer_drafts": [
+        1
+      ],
+      "cash": {
+        "before": 3400.0,
+        "paid": 840.0,
+        "after": 2560.0
+      }
+    },
+    {
+      "ticket_id": 102,
+      "subject": "Rent due",
+      "final_status": "resolved",
+      "runs": [
+        {
+          "run_id": "20261005-011546-a627b2",
+          "status": "completed",
+          "started_at": "2026-10-05T01:15:46.423-04:00",
+          "ended_at": "2026-10-05T01:16:18.647-04:00",
+          "usage": {
+            "requests": 7,
+            "tool_calls": 7,
+            "input_tokens": 17981,
+            "output_tokens": 2336,
+            "total_tokens": 20317,
+            "loop_steps": 18,
+            "delegations": 1
+          }
+        }
+      ],
+      "summary": "房租申请 #2（$2,400）在工单 101 运行中创建、归属 102，并在本工单运行前由真人批准执行；本运行由场地负责人核实这一期已付，没有重复付款。",
+      "delegations": [
+        "总负责人 → 场地负责人"
+      ],
+      "agents": {
+        "boss": {
+          "title": "总负责人",
+          "participated": true,
+          "contribution": "读取工单 102，委派场地负责人核实，查看付款申请和现金，提示通知日期与审批时间戳需真人核实。",
+          "mcp_tools": {
+            "list_open_tickets": 1,
+            "get_ticket_details": 1,
+            "list_approval_requests": 1,
+            "get_cash_position": 1
+          }
+        },
+        "inventory": {
+          "title": "库存负责人",
+          "participated": false,
+          "contribution": "本次未参与",
+          "mcp_tools": {}
+        },
+        "finance": {
+          "title": "财务负责人",
+          "participated": false,
+          "contribution": "本次未参与",
+          "mcp_tools": {}
+        },
+        "facilities": {
+          "title": "场地负责人",
+          "participated": true,
+          "contribution": "用 get_lease_status 查到 next_due 已顺延到 2026-10-02 且已有 $2,400 付款，判断不应再付。",
+          "mcp_tools": {
+            "get_ticket_details": 1,
+            "get_lease_status": 1
+          }
+        },
+        "customer_service": {
+          "title": "客服负责人",
+          "participated": false,
+          "contribution": "本次未参与",
+          "mcp_tools": {}
+        }
+      },
+      "human_approvals": [
+        {
+          "request_id": 2,
+          "uid": "5eb455f5d9be40e9943f52b6aa287917",
+          "ticket_id": 102,
+          "kind": "rent",
+          "ref_id": 1,
+          "payee": "Elm City Properties",
+          "amount": 2400.0,
+          "status": "executed",
+          "approved_by": "杨启荣",
+          "decided_at": "2026-10-05T01:14:23",
+          "payment_id": 2,
+          "requested_by": "finance"
+        }
+      ],
+      "customer_drafts": [],
+      "cash": {
+        "before": 2560.0,
+        "paid": 2400.0,
+        "after": 160.0,
+        "note": "付款发生在工单 102 智能体运行之前（01:14:23），运行期间现金变化为 0。"
+      }
+    },
+    {
+      "ticket_id": 103,
+      "subject": "Bulk hoodie discount",
+      "final_status": "resolved",
+      "runs": [
+        {
+          "run_id": "20261005-011713-bcb773",
+          "status": "stopped_by_limit",
+          "started_at": "2026-10-05T01:17:13.327-04:00",
+          "ended_at": "2026-10-05T01:18:01.032-04:00",
+          "usage": {
+            "requests": 19,
+            "tool_calls": 38,
+            "input_tokens": 53752,
+            "output_tokens": 7047,
+            "total_tokens": 60799,
+            "loop_steps": 51,
+            "delegations": 7
+          }
+        },
+        {
+          "run_id": "20261005-011902-6cbc33",
+          "status": "completed",
+          "started_at": "2026-10-05T01:19:02.870-04:00",
+          "ended_at": "2026-10-05T01:19:55.761-04:00",
+          "usage": {
+            "requests": 14,
+            "tool_calls": 17,
+            "input_tokens": 40515,
+            "output_tokens": 5347,
+            "total_tokens": 45862,
+            "loop_steps": 36,
+            "delegations": 3
+          }
+        }
+      ],
+      "summary": "M 码 8 件、缺 12 件；供应商已可发货（lead_days 5）但补货约 $264 超过余额 $160。财务给出标价/九折/成本底线三种方案；客服保存未发送草稿 #2。无付款。第一次运行因工具调用超过 40 次停止，修复后重试成功。",
+      "delegations": [
+        "总负责人 → 库存负责人",
+        "总负责人 → 财务负责人",
+        "总负责人 → 客服负责人"
+      ],
+      "failed_attempt": {
+        "run_id": "20261005-011713-bcb773",
+        "status": "stopped_by_limit",
+        "delegations": [
+          "总负责人 → 库存负责人",
+          "总负责人 → 财务负责人",
+          "库存负责人 → 财务负责人",
+          "财务负责人 → 库存负责人",
+          "总负责人 → 客服负责人",
+          "客服负责人 → 库存负责人",
+          "客服负责人 → 财务负责人"
+        ],
+        "cause": "客服在已有核实事实时重复委派库存和财务，财务重复试价，工具调用超过 40 次上限；无付款、无草稿。"
+      },
+      "agents": {
+        "boss": {
+          "title": "总负责人",
+          "participated": true,
+          "contribution": "先委派库存，再把库存结果带给财务，最后带着两者结果委派客服；结论为暂不确认全量、折扣和交期。",
+          "mcp_tools": {
+            "list_open_tickets": 1,
+            "get_ticket_details": 1
+          }
+        },
+        "inventory": {
+          "title": "库存负责人",
+          "participated": true,
+          "contribution": "确认 M 码 8 件、缺 12 件和替代尺码；供应商已无未付发票，lead_days 5 天。",
+          "mcp_tools": {
+            "get_ticket_details": 1,
+            "check_stock_and_price": 1,
+            "list_sizes_for_sku": 1,
+            "get_vendor_status": 1
+          }
+        },
+        "finance": {
+          "title": "财务负责人",
+          "participated": true,
+          "contribution": "用 3 次 quote_bulk_price 计算标价、九折和成本底线的毛利；指出补货约 $264 高于余额 $160。",
+          "mcp_tools": {
+            "get_ticket_details": 1,
+            "check_stock_and_price": 1,
+            "get_cash_position": 1,
+            "quote_bulk_price": 3
+          }
+        },
+        "facilities": {
+          "title": "场地负责人",
+          "participated": false,
+          "contribution": "本次未参与",
+          "mcp_tools": {}
+        },
+        "customer_service": {
+          "title": "客服负责人",
+          "participated": true,
+          "contribution": "直接采用已核实事实保存未发送草稿 #2，未承诺折扣和交期。",
+          "mcp_tools": {
+            "get_ticket_details": 1,
+            "save_customer_draft": 1
+          }
+        }
+      },
+      "human_approvals": [],
+      "customer_drafts": [
+        2
+      ],
+      "cash": {
+        "before": 160.0,
+        "paid": 0.0,
+        "after": 160.0
+      }
+    }
+  ],
+  "fixes_during_round": [
+    {
+      "audit_event": 191,
+      "issue": "房租申请 #2 被自动标成工单 101",
+      "fix": "MCP 服务器按 tickets.lease_id / invoice_id 关联确定付款归属，并用 relink_approval_requests 更正 #2 → 工单 102（只改归属）。"
+    },
+    {
+      "run_id": "20261005-011713-bcb773",
+      "issue": "工单 103 第一次运行工具调用超过 40 次",
+      "fix": "提示词要求不重复核实；MAX_TOOL_CALLS 40 → 60；重试成功。"
+    }
+  ],
+  "known_issues": [
+    "approval_requests 的 created_at / decided_at 使用电脑时间，而 payments.paid_at 使用 desk.date_today；工单 102 的总负责人已指出这一不一致。"
+  ]
+}

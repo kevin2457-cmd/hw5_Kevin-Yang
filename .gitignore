@@ -1,0 +1,35 @@
+# 密钥：只提交 .env.example
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.pytest_cache/
+
+# 前端
+node_modules/
+frontend/dist/
+*.tsbuildinfo
+
+# 审计写入时的临时文件（audit_trail.json 本身需要提交）
+output/*.lock
+output/*.tmp
+output/audit_trail.corrupt-*.json
+
+# SQLite 运行时临时文件（两个 .db 文件本身需要提交）
+data/*.db-journal
+data/*.db-wal
+data/*.db-shm
+
+# 编辑器与系统
+.vscode/
+.idea/
+.claude/
+*.log
+.DS_Store
+Thumbs.db

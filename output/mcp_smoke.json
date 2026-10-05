@@ -1,0 +1,36 @@
+{
+  "说明": "第 4 题 MCP 冒烟测试：三个工具均由编程助手（Claude Code）通过 MCP 服务器 campus-customs 实际调用，结果为工具原样返回，数据来自 data/campus_customs_new.db。",
+  "mcp_config": ".mcp.json（项目根目录 AI Fundation/.mcp.json 为当前会话实际加载的配置；hw5/.mcp.json 为 hw5 项目级配置）",
+  "server": "campus-customs",
+  "database": "data/campus_customs_new.db",
+  "tested_at": "2026-10-04",
+  "tests": [
+    {
+      "prompt": "请调用第一个工具，查询它所支持工单需要的真实数据库信息，并返回查询结果。",
+      "tool": "get_ticket_details",
+      "mcp_tool_name": "mcp__campus-customs__get_ticket_details",
+      "supports_ticket": 102,
+      "arguments": {"ticket_id": 102},
+      "result": {"found": true, "ticket": {"id": 102, "type": "rent_notice", "requester": "Elm City Properties", "subject": "Rent due", "sku": null, "size": null, "qty": null, "lease_id": 1, "invoice_id": null, "status": "open", "notes": "Email: shop rent due in 2 days.", "created_at": "2026-08-31T11:05:00-04:00"}, "lease": {"id": 1, "space_name": "Chapel Street shop", "landlord": "Elm City Properties", "monthly_rent": 2400, "next_due": "2026-09-02", "notes": null}, "invoice": null, "vendor": null},
+      "success": true
+    },
+    {
+      "prompt": "请调用第二个工具，查询它所支持工单需要的真实数据库信息，并返回查询结果。",
+      "tool": "check_stock_and_price",
+      "mcp_tool_name": "mcp__campus-customs__check_stock_and_price",
+      "supports_ticket": 103,
+      "arguments": {"sku": "CC-HOOD-NAVY", "size": "M"},
+      "result": {"found": true, "inventory": {"sku": "CC-HOOD-NAVY", "name": "Basic Hoodie Big Yale", "size": "M", "qty": 8, "location": "Aisle A"}, "pricing": {"sku": "CC-HOOD-NAVY", "unit_cost": 22, "list_price": 58}},
+      "success": true
+    },
+    {
+      "prompt": "请调用第三个工具，查询它所支持工单需要的真实数据库信息，并返回查询结果。",
+      "tool": "get_cash_position",
+      "mcp_tool_name": "mcp__campus-customs__get_cash_position",
+      "supports_ticket": 102,
+      "arguments": {},
+      "result": {"today": "2026-08-31", "cash_accounts": [{"name": "checking", "balance": 3400, "date": "2026-08-31"}], "leases": [{"id": 1, "space_name": "Chapel Street shop", "landlord": "Elm City Properties", "monthly_rent": 2400, "next_due": "2026-09-02", "notes": null}], "unpaid_invoices": [{"id": 501, "vendor_id": 1, "amount": 840, "due_date": "2026-08-28", "status": "open", "description": "Rush reprint CC-TEE-WHITE S"}]},
+      "success": true
+    }
+  ]
+}
